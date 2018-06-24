@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\StockOut;
 use App\StockOutProduct;
@@ -53,6 +53,7 @@ class StockOutController extends Controller
         $stockoutproduct = new StockOutProduct;
         $item = array();
         foreach ($request['item'] as $value) {
+            
             $stockoutproduct=[
                                 'item_id'=>$value['item_id'],
                                 'qty'=>$value['qty'],
@@ -63,8 +64,35 @@ class StockOutController extends Controller
 
         $result = StockOutProduct::insert($item);
         if ($result == 1) {
+            $set_all_data = array();
+
             $requests = $request->all();
-            return $blade=view('Sales.invoice',['items'=>$requests,'invoice_id'=> $id]);
+
+            foreach ($requests['item'] as $value) {
+                if ($value['is_itemset'] == 1) {
+                    $setitem_name = DB::table('itemssets__items')
+                        ->leftJoin('items', 'itemssets__items.item_id', '=', 'items.id')
+                        ->where('set_id',$value['item_id'])
+                        ->get();
+                }else{
+                    $setitem_name= '0';
+                }
+
+                $setitem_arr = [
+                    'set_item'=>$setitem_name,
+                    'item'=>$value,
+                ];
+                array_push($set_all_data, $setitem_arr);
+            }
+
+            $item_total[] =[
+                'grandtotal' => $requests['grandtotal'],
+                'subtotal' => $requests['subtotal'],
+                'discount'=>$requests['discount'],
+                'cash'=>$requests['cash'],
+            ];
+
+            return $blade=view('Sales.invoice',['set_all_data'=>$set_all_data,'charges'=>$item_total,'invoice_id'=> $id]);
         }
 
     }

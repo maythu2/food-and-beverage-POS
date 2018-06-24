@@ -4,7 +4,7 @@
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
 
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>        
+        <script src="{{ asset('js/jquery-3.3.1.min.js')}}"></script>        
         <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/select2.min.js') }}"></script>

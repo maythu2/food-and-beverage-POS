@@ -36,7 +36,10 @@ var Item = function(){
     	 			else{
     	 				alert("Please Try Again!");
     	 			} 			
-     			}
+     			},
+                error:function(result){
+                    alert('Please Insert Require Data');
+                }
       		});
         }else{
             $.ajax({

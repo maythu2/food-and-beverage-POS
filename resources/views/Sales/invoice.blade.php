@@ -43,10 +43,10 @@
 	    border: none !important;
 	}
 	label {
-	    display: inline-block;
-	    max-width: 100%;
-	    margin-bottom: 5px;
-	    font-weight: 1 !important;
+	    display: inline-block !important;
+	    max-width: 100% !important;
+	    margin-bottom: 5px !important;
+	    font-weight: 1px solid !important;
 	}
 	.table>tbody+tbody {
     	border-top: none !important;
@@ -81,39 +81,65 @@
         				<td>AMOUNT</td> 
         			</tr>
         		</thead>
-        		@foreach($items['item'] as $item)
-        		<tbody>
-        		 	<tr>
-    		 			<td>{{$item['qty']}}</td>
-        		 		<td>{{$item['item_name']}}</td> 
-        		 		<td>{{$item['item_price']}}</td> 
-        		 	</tr>
-        		</tbody> 
-    			@endforeach
-        		<tfoot class="tfoot">
-        		  	<tr>
-        		  		<td colspan="1"></td> 
-        		  		<td>Subtotal</td> 
-        		  		<td>{{$items['subtotal']}}</td>
-        		  	</tr> 
-        		  	<tr>
-        		  		<td colspan="1"></td> 
-        		  		<td>Discount %</td> 
-        		  		<td>{{$items['discount']}}</td>
-        		  	</tr> 
-        		  	<tr>
-        		  		<td colspan="1"></td> 
-        		  		<td>Grand Total</td> 
-        		  		<td>{{$items['grandtotal']}}</td>
-        		  	</tr> 
-        		  	<tr>
-        		  		<td colspan="1"></td> 
-        		  		<td>CASH</td> 
-        		  		<td>{{$items['cash']}}</td>
-        		  	</tr>
-    		  </tfoot>
+                @foreach($set_all_data as $menu)
+                
+                    @if($menu["set_item"] == '0')
+                        <tbody>
+                            <tr>
+                                <td>{{$menu["item"]["qty"]}}</td>
+                                <td>{{$menu["item"]["item_name"]}}</td> 
+                                <td>{{$menu["item"]["item_price"]}}</td> 
+                            </tr>
+                        </tbody>
+                    @else
+                        <tbody>
+                            <tr>
+                                <td>{{$menu["item"]["qty"]}}</td>
+                                <td>{{$menu["item"]["item_name"]}}</td> 
+                                <td>{{$menu["item"]["item_price"]}}</td> 
+                            </tr>
+                        </tbody>
+                        @foreach($menu['set_item'] as $set_menu)
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td style="padding-left: 25px !important;padding-top: 0px !important;color: #919FB1;">{{$set_menu->name}}</td> 
+                                <td style="padding-left: 25px !important;padding-top: 0px !important;color: #919FB1;">{{$set_menu->price}}</td> 
+                            </tr>
+                        </tbody>
+                        @endforeach
+                    @endif
+                @endforeach
+        		@foreach($charges as $prices)
+                    <tfoot class="tfoot">
+                    <tr>
+                        <td colspan="1"></td> 
+                        <td>Subtotal</td> 
+                        <td>{{$prices['subtotal']}}</td>
+                    </tr> 
+                    <tr>
+                        <td colspan="1"></td> 
+                        <td>Discount %</td> 
+                        <td>{{$prices['discount']}}</td>
+                    </tr> 
+                    <tr>
+                        <td colspan="1"></td> 
+                        <td>Grand Total</td> 
+                        <td>{{$prices['grandtotal']}}</td>
+                    </tr> 
+                    <tr>
+                        <td colspan="1"></td> 
+                        <td>CASH</td> 
+                        <td>{{$prices['cash']}}</td>
+                    </tr>
+                    </tfoot>           
+                @endforeach
     		</table>
     	</div>
 	</div>
-
+<script type="text/javascript">
+    $('document').ready(function(){
+        
+    })
+</script>
 @stop

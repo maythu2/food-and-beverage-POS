@@ -16,8 +16,7 @@ class ItemSetController extends Controller
      */
     public function index()
     {
-        $item = DB::table('items')->where('is_itemset', '0')->get();
-      
+        $item = DB::table('items')->where('is_itemset', '1')->get();
         return response()->json($item);
     }
 
@@ -28,7 +27,7 @@ class ItemSetController extends Controller
      */
     public function create()
     {
-         return view('Item.set');
+         return view('Item.setlist');
     }
 
     /**
@@ -39,6 +38,10 @@ class ItemSetController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+                'name'=>'required',
+                'price'=>'required',
+        ]);
         $item = new Item([
             'name'=>$request->get('name'),
             'price'=>$request->get('price'),
@@ -61,7 +64,7 @@ class ItemSetController extends Controller
         $result = Itemssets_Items::insert($itemset);
         if ($result == 1) {
             $requests = $request->all();
-            return $blade=view('Item.setlist',['set_items'=>$requests,'item_id'=> $id]);
+            return $blade=view('Item.setlist',['set_items'=>$requests,'item_id'=> $set_id]);
         }
     }
 
@@ -71,9 +74,14 @@ class ItemSetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
-        //
+
+        $set_item_name = DB::table('itemssets__items')
+                        ->leftJoin('items', 'itemssets__items.item_id', '=', 'items.id')
+                        ->where('set_id',$request->get('id'))
+                        ->get();
+        return response()->json($set_item_name);
     }
 
     /**
@@ -108,5 +116,10 @@ class ItemSetController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function setmenu(){
+        $item = DB::table('items')->where('is_itemset', '0')->get();
+        return response()->json($item);
     }
 }

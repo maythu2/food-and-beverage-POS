@@ -140,6 +140,7 @@
                         "<td class='item_id' >"+j+"</td>"+
                         "<td><input type='text' class='form-control item_name' item_id='"+ results.id+"'value='"+ name +"'></td>"+
                         "<td><input type='text' class='form-control item_qty'></td>"+
+                        "<input type='hidden' class='form-control itemset' value='"+results.is_itemset+"'>"+
                         "<td><input type='text' class='form-control item_price' disabled=true value='"+ price +"'></td>"+
                         "<td><input type='text' class='form-control item_total' disabled=true></td>"+
                         "<td><button class='btn btn-danger delete_row'>Remove</button></td>"
@@ -155,7 +156,6 @@
                         alert('item already selected');
                     }
                 }else{  
-                    alert('not index');
                     $('#t_body').append(tr);
                     index.push(results.id);
                     j++;
@@ -190,6 +190,7 @@
                 qty: $(this).find('.item_qty').val(),
                 item_name: $(this).find('.item_name').val(),
                 item_price: $(this).find('.item_price').val(),
+                is_itemset: $(this).find('.itemset').val(),
             };
             items.push(arr);
         });
@@ -213,6 +214,9 @@
                 alert('Successfully save Invoice');
                 $("#sale").hide();
                 $("#invoice").html(result);
+            },
+            error: function(result){
+                alert('Please Insert Require Data!');
             }
 
         });

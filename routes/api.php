@@ -23,3 +23,5 @@ Route::get('item_autocomplete','ItemsController@autocomplete');
 Route::resource('stockout','StockOutController');
 
 Route::resource('set','ItemSetController');
+
+Route::get('setmenu','ItemSetController@setmenu');

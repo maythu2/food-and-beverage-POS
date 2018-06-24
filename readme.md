@@ -7,6 +7,29 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+## Installation
+- git clone from remote url
+- composer install
+- create db 
+- add .env file and edit your db information
+- php artisan migrate:refresh --seed
+- php artisan serve
+- run on your browser 127.0.0.1:8000
+
+## Error 
+if composer install is not ok ,composer error and autoload error occur 
+- composer update
+- composer dump-autoload
+
+if "No application encryption key has been specified." error occur
+- php artisan key:generate
+
+your .env file is added and edited but this error occur "Access denied for user 'homestead'@'localhost' (using password: YES)"
+- php artisan config:clear
+- composer dump-autoload 
+- close your cmd and then run "php artisan serve"
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
