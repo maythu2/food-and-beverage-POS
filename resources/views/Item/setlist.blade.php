@@ -207,9 +207,8 @@
                 price:set_price,
             },
             success:function(result){
-                    console.log(result);
-                    alert('Successfully Save Set');
-                    refresh_Table();
+                location.reload();
+                alert('Successfully Save Set');
             },
             error:function(result){
                 alert('Please Insert Require Data!');
@@ -217,11 +216,5 @@
 
         })
     }) 
-    function refresh_Table(){
-        $('.main_table >tbody>tr').each(function(){
-            var set_name=$(this).find('.set_name').val();
-            $(this).find('.set_name').val(set_name);
-        });
-    }   
 </script>
 @stop
