@@ -15,5 +15,5 @@
 //     return view('welcome');
 // });
 Route::get('/',function(){
-    return view('sales.sale');
+    return view('Sales.sale');
 });
