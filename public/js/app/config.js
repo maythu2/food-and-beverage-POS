@@ -17,7 +17,7 @@ var Config = function(){
 
    return{
        init : init,
-       apiurl : 'http://127.0.0.1:8000/api/',
+       apiurl : 'api/',
        siteurl : 'http://127.0.0.1:8000/'
    }
 
