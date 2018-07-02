@@ -1,5 +1,22 @@
 <?php
 
+/***** Only for heroku *****/
+$url = parse_url(getenv("DATABASE_URL"));
+$host = $url["host"]??null;
+$username = $url["user"]??null;
+$password = $url["password"]?? "2f7aeb0ae4adae9f532463306ce9752cdf0347b43539ce41a03cfc231410ed18";
+$database = substr($url["path"], 1)??null;
+// echo $host;
+// echo "<br>";
+// echo $username;
+// echo "<br>";
+// echo $password;
+// echo "<br>";
+// echo $database;
+// echo "<br>";
+
+/*************************************************/
+
 return [
 
     /*
@@ -13,7 +30,9 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    // 'default' => env('DB_CONNECTION', 'mysql'), // use in local
+
+    'default' => env('DB_CONNECTION', 'pgsql_production'), // for heroku
 
     /*
     |--------------------------------------------------------------------------
@@ -66,6 +85,19 @@ return [
             'schema' => 'public',
             'sslmode' => 'prefer',
         ],
+
+        /***** Only for heroku *****/
+        'pgsql_production' => [
+            'driver'   => 'pgsql',
+            'host' => $host,
+            'database' => $database,
+            'username' => $username,
+            'password' => $password,
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
+        ],
+        /*************************************************/
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
