@@ -4,7 +4,7 @@
 $url = parse_url(getenv("DATABASE_URL"));
 $host = $url["host"]??null;
 $username = $url["user"]??null;
-$password = $url["password"]?? "2f7aeb0ae4adae9f532463306ce9752cdf0347b43539ce41a03cfc231410ed18";
+$password = $url["password"]?? "21a06f7950bbea19e9d5dd7ad2c3c678c7a1f4973a82ef4a66ead95132ca365a";
 $database = substr($url["path"], 1)??null;
 // echo $host;
 // echo "<br>";
