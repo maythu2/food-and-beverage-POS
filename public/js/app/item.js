@@ -16,7 +16,7 @@ var Item = function(){
     },
     saveItem= function(){
 	    var name=$("#name").val(); 		
- 		var price=$("#price").val();
+ 		 var price=$("#price").val();
         console.log(price);
         var id=$('#item_id').val();
         if(id==''){
@@ -38,7 +38,11 @@ var Item = function(){
     	 			} 			
      			},
                 error:function(result){
-                    alert('Please Insert Require Data');
+                    console.log(result.responseJSON.errors.name);
+                    $('#validation-errors-name').html('');
+                    $('#validation-errors-price').html('');
+                    $('#validation-errors-name').append('<div class="alert alert-danger">'+result.responseJSON.errors.name+'</div');
+                    $('#validation-errors-price').append('<div class="alert alert-danger">'+result.responseJSON.errors.price+'</div');
                 }
       		});
         }else{
@@ -108,8 +112,10 @@ var Item = function(){
        });
     }
     cleardata=function(){
-       $("#name").val('');
-       $("#price").val('');
+        $("#name").val('');
+        $("#price").val('');
+        $('#validation-errors-name').html('');
+        $('#validation-errors-price').html('');
     }
     return{
         init : init,

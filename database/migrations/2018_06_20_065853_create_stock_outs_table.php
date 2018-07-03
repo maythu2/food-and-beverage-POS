@@ -15,8 +15,9 @@ class CreateStockOutsTable extends Migration
     {
         Schema::create('stock_outs', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('invoice_name');
             $table->integer('grand_total');
-            $table->integer('discount');
+            $table->integer('discount')->nullable();
             $table->integer('cash');
             $table->timestamps();
         });

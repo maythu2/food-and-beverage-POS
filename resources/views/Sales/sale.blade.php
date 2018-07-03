@@ -11,63 +11,96 @@
         text-align: center;
         margin-bottom: 50px;
     }
+    .select2-container--default .select2-selection--single {
+        background-color: #fff;
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        height: 36px !important;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 26px;
+        position: absolute;
+        top: 5px !important;
+        right: 1px;
+        width: 20px;
+    }
 </style>
-<div class="col-md-12" id="invoice">
-    
-</div>
-<div class="col-md-12" id="sale">
-    <h2>Food and Beverage Point of Sales Systems</h2>
-    <select class="js-example-basic-single item" name="state">
-        <option value=""></option>
-    </select>
-    <form action="{{url('api/item/create')}}" method="get" style="float: right;">
-        <button class="btn btn-success" >Create Item
-        </button>
-    </form>
-    <form action="{{url('api/set/create')}}" method="get" style="float: right;margin-right: 300px;}">
-        <button class="btn btn-success" >Create Item Set
-        </button>
-    </form>
-    <div id="row" style="padding-top: 30px;">
-        <table class="table table-bordered main_table">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Item Name</th>
-                    <th>Qty</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="t_body">
-                <input type="hidden" name="_token"  id="ctr_token" value="<?php echo csrf_token() ?>">
-            </tbody>
-            <tfoot class="t_foot">
-                <tr>
-                    <td colspan="4" style="text-align: right;"> Sub Total</td>
-                    <td><input type="text" class="form-control item_subtotal"></td>
-                </tr>
-                <tr>
-                    <td colspan="4" style="text-align: right;">Discount %</td>
-                    <td><input type="text" value="0" class="form-control item_discount"></td>
-                </tr>
-                <tr>
-                    <td colspan="4" style="text-align: right;">Grand Total</td>
-                    <td><input type="text" class="form-control item_grandtotal" disabled="true"></td>
-                </tr>
-                <tr>
-                    <td colspan="4" style="text-align: right;">Cash</td>
-                    <td><input type="text" class="form-control item_cash" disabled="true"></td>
-                </tr>
-            </tfoot>
-        </table>
-            <button class="btn btn-success save" style="margin-left: 80%;"> Save</button>     
+    <div class="col-sm" id="invoice">
     </div>
-</div>
+    <div class="col-sm" id="sale">
+        <h2>Food and Beverage Point of Sales Systems</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="row">
+                        Invoice Name: 
+                        <div class="col-8">
+                        <input type="text" value="" class="form-control" id="invoice_name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <select class="js-example-basic-single item" name="state">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col">
+                    <form action="{{url('api/item/create')}}" method="get">
+                        <button class="btn btn-success" >Create Item
+                        </button>
+                    </form>
+                </div>
+                <div class="col">
+                    <form action="{{url('api/set/create')}}" method="get">
+                        <button class="btn btn-success" >Create Item Set
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="row" style="padding-top: 30px;">
+            <table class="table table-bordered main_table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Item Name</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="t_body">
+                    <input type="hidden" name="_token"  id="ctr_token" value="<?php echo csrf_token() ?>">
+                </tbody>
+                <tfoot class="t_foot">
+                    <tr>
+                        <td colspan="4" style="text-align: right;"> Sub Total</td>
+                        <td><input type="text" value="0" class="form-control item_subtotal"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align: right;">Discount %</td>
+                        <td><input type="text" value="0" class="form-control item_discount"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align: right;">Grand Total</td>
+                        <td><input type="text" value="0" class="form-control item_grandtotal" disabled="true"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align: right;">Cash</td>
+                        <td><input type="text" value="0" class="form-control item_cash" disabled="true"></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <button class="btn btn-success save" style="margin-left: 80%;"> Save</button> 
+        </div>
+    </div>
 <script type="text/javascript">
     var j=1;
     var index=[];
+    $('document').ready(function(){
+        $('.save').prop('disabled', true);
+    })
     $('body').delegate('.item_qty','keyup',function(){
             var x=$(this).parent().parent();
             var textValue1 = x.find('.item_qty').val();
@@ -86,9 +119,14 @@
     }
     // for delete item row
     $('#t_body').delegate('.delete_row','click',function(){
-        alert('delete');
-        var del_row=$(this).closest('.tr_clone');
+        var del_row=$(this).closest('tr');
         del_row.remove();
+        var del_id = del_row.find('td .item_name').attr('item_id');
+        var del_index = index.indexOf(parseInt(del_id));
+        index.splice(del_index,1);
+        if (index.length==0){
+            $('.save').prop('disabled',true);
+        }
         refresh_Table();
     }); 
     // // for item discount
@@ -102,7 +140,6 @@
         $('.item_grandtotal').val(grandtotal);
         $('.item_cash').val(grandtotal);
     }
-    
     // for product with select2-container
     $('.item').select2({
          ajax: {
@@ -137,7 +174,7 @@
                 var price = results.price;
                 var tr ="<tr class='tr_clone'>"
                         +
-                        "<td class='item_id' >"+j+"</td>"+
+                        "<td class='item_id' indexof= '"+j+"'>"+j+"</td>"+
                         "<td><input type='text' class='form-control item_name' item_id='"+ results.id+"'value='"+ name +"'></td>"+
                         "<td><input type='text' class='form-control item_qty'></td>"+
                         "<input type='hidden' class='form-control itemset' value='"+results.is_itemset+"'>"+
@@ -147,6 +184,7 @@
                         +
                         "</tr>";
                 if (index.length>0) {
+                    console.log(index);
                     if (index.indexOf(results.id) == -1) {
                         $('#t_body').append(tr);
                         index.push(results.id);
@@ -156,6 +194,7 @@
                         alert('item already selected');
                     }
                 }else{  
+                    console.log(index);
                     $('#t_body').append(tr);
                     index.push(results.id);
                     j++;
@@ -164,7 +203,7 @@
                 
             }
         })
-      
+        $('.save').prop('disabled', false);
     });
     function refresh_Table(){
         var i=1;
@@ -194,6 +233,11 @@
             };
             items.push(arr);
         });
+        var invoice_name=$('#invoice_name').val();
+        if (invoice_name==''){
+            alert("Please Insert Invoice name");
+            return false;
+        }
         var subtotal =$('.item_subtotal').val();
         var grandtotal =$('.item_grandtotal').val();
         var discount = $('.item_discount').val();
@@ -202,6 +246,7 @@
             url : "/api/stockout",
             type : "POST",
             data : {
+                    invoice_name:invoice_name,
                     item : items,
                     grandtotal:grandtotal,
                     discount:discount,
@@ -216,11 +261,10 @@
                 $("#invoice").html(result);
             },
             error: function(result){
-                alert('Please Insert Require Data!');
+               console.log(result);
             }
 
         });
     });
-
 </script>
 @stop

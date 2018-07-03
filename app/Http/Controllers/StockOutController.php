@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\StockOut;
 use App\StockOutProduct;
+use Validator;
 
 class StockOutController extends Controller
 {
@@ -36,15 +37,11 @@ class StockOutController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->get("discount")==''&&$request->get("discount")==NULL) {
-            $discount=0;
-        }else{
-            $discount=$request->get("discount");
-        }
         $stockout = new StockOut([
-            'discount'=>$discount,
+            'discount'=>$request->get("discount"),
             'grand_total'=>$request->get("grandtotal"),
             'cash'=>$request->get("cash"),
+            'invoice_name'=>$request->get("invoice_name"),
         ]);
         $stockout->save();
 
@@ -53,7 +50,6 @@ class StockOutController extends Controller
         $stockoutproduct = new StockOutProduct;
         $item = array();
         foreach ($request['item'] as $value) {
-            
             $stockoutproduct=[
                                 'item_id'=>$value['item_id'],
                                 'qty'=>$value['qty'],

@@ -15,8 +15,10 @@ class CreateStockOutProductsTable extends Migration
     {
         Schema::create('stock_out_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('stock_out_id');
-            $table->integer('item_id');
+            $table->integer('stock_out_id')->unsigned();
+            $table->foreign('stock_out_id')->references('id')->on('stock_outs')->onDelete('cascade');
+            $table->integer('item_id')->unsigned();
+            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
             $table->integer('qty');
             $table->timestamps();
         });
