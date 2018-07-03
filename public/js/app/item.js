@@ -22,7 +22,7 @@ var Item = function(){
         if(id==''){
      		$.ajax({
      			type : 'post',
-     			url : Config.apiurl+"item",
+     			url : "/api/item",
      			dataType : 'json',
      			data : {
      				name : name,
@@ -44,7 +44,7 @@ var Item = function(){
         }else{
             $.ajax({
                type : 'put',
-               url : Config.apiurl+"item/"+id,
+               url : "/api/item/"+id,
                dataType : 'json',
                data :{
                    id : id,
@@ -66,7 +66,7 @@ var Item = function(){
     getItem=function(){
     	$.ajax({
     		type: 'get',
-    		url : Config.apiurl+"item",
+    		url : "/api/item",
     		dataType : 'json',
     		success : function(result){
                 $("#show_output").html('');
@@ -80,7 +80,7 @@ var Item = function(){
     id=$(obj).attr("edit_id");
     $.ajax({
             type: 'get',
-            url : Config.apiurl+"item/"+id+"/edit",
+            url : "/api/item/"+id+"/edit",
             dataType : 'json',
             success : function(result){
             console.log(result);
@@ -99,7 +99,7 @@ var Item = function(){
     id=$(obj).attr("delete_id");
     $.ajax({
            type: 'delete',
-           url : Config.apiurl+"item/"+id,
+           url : "/api/item/"+id,
            dataType : 'json',
            success : function(result){
                alert("Successfully Deleted!");

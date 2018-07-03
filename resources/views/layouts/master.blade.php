@@ -1,8 +1,8 @@
 <html>
    <head>
         <title>@yield('Food and Beverage Point of Sales Systems')</title>
-        <link href="{{ secure_asset('css/bootstrap.min.css') }}" media="all" rel="stylesheet">
-        <link href="{{ secure_asset('css/select2.min.css') }}" media="all" rel="stylesheet">
+        <link href="{{ asset('css/bootstrap.min.css') }}" media="all" rel="stylesheet">
+        <link href="{{ asset('css/select2.min.css') }}" media="all" rel="stylesheet">
 
         <script src="{{ asset('js/jquery-3.3.1.min.js')}}"></script>        
         <script src="{{ asset('js/jquery-ui.min.js') }}"></script>

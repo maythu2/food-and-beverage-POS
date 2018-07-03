@@ -132,7 +132,7 @@
     $(document).ready(function(){
         $.ajax({
             type:'get',
-            url:Config.apiurl+'set',
+            url:'/api/set',
             datatype:'json',
             success:function(result){
                 console.log(result);
@@ -147,7 +147,7 @@
         var set_id=$(this).attr("setid");
         $.ajax({
             type:'get',
-            url:Config.apiurl+'set/show',
+            url:'/api/set/show',
             datatype:'json',
             data:{
                 id:set_id,
@@ -168,7 +168,7 @@
     $('#create_set').click(function(){
         $.ajax({
             type:'get',
-            url:Config.apiurl+'setmenu',
+            url:'/api/setmenu',
             datatype:'json',
             success:function(result){
                 $(".checkitem").empty();
@@ -199,7 +199,7 @@
         console.log(index);
         $.ajax({
             type:'post',
-            url:Config.apiurl+'set',
+            url:'/api/set',
             datatype:'json',
             data:{
                 check_id:index,

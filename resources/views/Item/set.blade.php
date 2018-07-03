@@ -32,9 +32,10 @@
 	var sum=0;
 	var index = [];
 	$('document').ready(function(){
+		alert("maythu");
 		$.ajax({
 			type:'get',
-			url:Config.apiurl+'set',
+			url:'/api/set',
 			datatype:'json',
 			success:function(result){
 				console.log(typeof(result));
@@ -66,7 +67,7 @@
 		console.log(index);
 		$.ajax({
 			type:'post',
-			url:Config.apiurl+'set',
+			url:'/api/set',
 			datatype:'json',
 			data:{
 				check_id:index,

@@ -20,11 +20,11 @@
     <select class="js-example-basic-single item" name="state">
         <option value=""></option>
     </select>
-    <form action="api/item/create" method="get" style="float: right;">
+    <form action="{{url('api/item/create')}}" method="get" style="float: right;">
         <button class="btn btn-success" >Create Item
         </button>
     </form>
-    <form action="api/set/create" method="get" style="float: right;margin-right: 300px;}">
+    <form action="{{url('api/set/create')}}" method="get" style="float: right;margin-right: 300px;}">
         <button class="btn btn-success" >Create Item Set
         </button>
     </form>
@@ -107,7 +107,7 @@
     $('.item').select2({
          ajax: {
             type: 'get',
-            url: Config.apiurl+"item_autocomplete",
+            url: "/api/item_autocomplete",
             dataType : 'json',
             processResults: function (data) {
                 // console.log(data);
@@ -130,7 +130,7 @@
         var id=$(this).val();
         $.ajax({
             type:'get',
-            url:Config.apiurl+'item/'+id,
+            url:'/api/item/'+id,
             dataType:'json',
             success:function(results){
                 var name = results.name;
@@ -199,7 +199,7 @@
         var discount = $('.item_discount').val();
         var cash = $('.item_cash').val();
         $.ajax({
-            url : Config.apiurl+"stockout",
+            url : "/api/stockout",
             type : "POST",
             data : {
                     item : items,

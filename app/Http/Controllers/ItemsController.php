@@ -85,8 +85,6 @@ class ItemsController extends Controller
         $item=([
             'name' => $request->get('name'),
             'price' => $request->get('price'),
-            'categories_id'=>'1',
-            
         ]);
         $result = Item::where('id',$id)->update($item);
         return json_encode($result);
