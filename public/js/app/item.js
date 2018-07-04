@@ -31,14 +31,11 @@ var Item = function(){
      			success:function(data){
     	 			if(data==1){
     	 				alert("Successfully Saved!");
+                        $('#exampleModal').modal('toggle');
                         getItem();
-    	 			}
-    	 			else{
-    	 				alert("Please Try Again!");
-    	 			} 			
+    	 			}			
      			},
                 error:function(result){
-                    console.log(result.responseJSON.errors.name);
                     $('#validation-errors-name').html('');
                     $('#validation-errors-price').html('');
                     $('#validation-errors-name').append('<div class="alert alert-danger">'+result.responseJSON.errors.name+'</div');

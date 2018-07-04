@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="add_item">Save</button>
+            <button type="button" class="btn btn-primary save" id="add_item">Save</button>
         </div>
         </div>
       </div>
@@ -56,7 +56,7 @@
     <!-- /*********/ -->
    	<table class="table table-hover">
    	<tr>
-	  <th>Name</th>
+	    <th>Name</th>
       <th>Prices</th>
       <th colspan="2">Action</th>
    	</tr>

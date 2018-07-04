@@ -51,7 +51,7 @@
                     </form>
                 </div>
                 <div class="col">
-                    <form action="{{url('api/set/create')}}" method="get">
+                    <form action="{{url('api/set')}}" method="get">
                         <button class="btn btn-success" >Create Item Set
                         </button>
                     </form>

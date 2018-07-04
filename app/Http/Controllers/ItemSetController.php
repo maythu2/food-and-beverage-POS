@@ -16,8 +16,8 @@ class ItemSetController extends Controller
      */
     public function index()
     {
-        $item = DB::table('items')->where('is_itemset', '1')->get();
-        return response()->json($item);
+        $set_item = DB::table('items')->where('is_itemset', '1')->get();
+        return view('Item.setlist',['setitem'=>$set_item]);
     }
 
     /**
@@ -27,7 +27,7 @@ class ItemSetController extends Controller
      */
     public function create()
     {
-         return view('Item.setlist');
+        // 
     }
 
     /**
@@ -63,8 +63,7 @@ class ItemSetController extends Controller
         }
         $result = Itemssets_Items::insert($itemset);
         if ($result == 1) {
-            $requests = $request->all();
-            return $blade=view('Item.setlist',['set_items'=>$requests,'item_id'=> $set_id]);
+             return response()->json($request);
         }
     }
 

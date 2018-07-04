@@ -15,7 +15,7 @@ class ItemsController extends Controller
    	public function index()
     {
         $item= new Item();
-     	$item=$item->all();
+     	$item=$item->where('is_itemset','==',0)->get();
         return response()->json($item);
     }
 
